@@ -62,6 +62,171 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-matlab-demo-一-图像二值化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/12/matlab-demo-一-图像二值化/" class="article-date">
+  <time datetime="2019-05-12T10:16:04.000Z" itemprop="datePublished">2019-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/matlab-demo-一-图像二值化/">matlab_demo(一) 图像二值化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="图像二值化代码："><a href="#图像二值化代码：" class="headerlink" title="图像二值化代码："></a>图像二值化代码：</h5><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">A=imread(<span class="string">'hw1.chips1.GIF'</span>);   <span class="comment">%读取到一张图片   </span></span><br><span class="line"><span class="comment">%thresh = graythresh(A);     %自动确定二值化阈值</span></span><br><span class="line">I2 = im2bw(A,<span class="number">120</span>/<span class="number">255</span>); <span class="comment">%对图像二值化</span></span><br><span class="line"><span class="built_in">figure</span>();</span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>);  </span><br><span class="line">imshow(A);    <span class="comment">%显示二值化之前的图片</span></span><br><span class="line">title(<span class="string">'原图'</span>); </span><br><span class="line">subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">imshow(I2);    <span class="comment">%显示二值化之后的图片</span></span><br><span class="line">title(<span class="string">'二值化'</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="求目标和背景均值和方差"><a href="#求目标和背景均值和方差" class="headerlink" title="求目标和背景均值和方差"></a>求目标和背景均值和方差</h5><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">oriImg = imread(<span class="string">'hw1.chips1.GIF'</span>);</span><br><span class="line">grayImg = oriImg;</span><br><span class="line"><span class="comment">%grayImg = rgb2gray(oriImg); %转换为灰度图</span></span><br><span class="line">grayImg = double(grayImg);</span><br><span class="line">[m, n] = <span class="built_in">size</span>(oriImg);</span><br><span class="line">foreCount = <span class="number">0</span>;</span><br><span class="line">foreTotal = <span class="number">0</span>;</span><br><span class="line">backCount = <span class="number">0</span>;</span><br><span class="line">backTotal = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x = <span class="number">1</span>:m</span><br><span class="line">    <span class="keyword">for</span> y = <span class="number">1</span>:n</span><br><span class="line">        <span class="keyword">if</span>(grayImg(x,y) &gt;= <span class="number">128</span>)</span><br><span class="line">            foreCount = foreCount + <span class="number">1</span>;</span><br><span class="line">            foreTotal = foreTotal + grayImg(x,y);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            backCount = backCount + <span class="number">1</span>;</span><br><span class="line">            backTotal = backTotal + grayImg(x,y);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">backMean = backTotal / backCount;</span><br><span class="line">foreMean = foreTotal / foreCount;</span><br><span class="line">backSqu = <span class="number">0</span>;</span><br><span class="line">foreSqu = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> x =<span class="number">1</span>:m</span><br><span class="line">    <span class="keyword">for</span> y = <span class="number">1</span>:n</span><br><span class="line">        <span class="keyword">if</span>(grayImg(x,y) &gt;= <span class="number">128</span>)</span><br><span class="line">            foreSqu = foreSqu + (grayImg(x,y) - foreMean)^<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            backSqu = backSqu + (grayImg(x,y) - backMean)^<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">end</span> </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">backSqu = <span class="built_in">sqrt</span>(backSqu / backTotal);</span><br><span class="line">foreSqu = <span class="built_in">sqrt</span>(foreSqu / foreTotal);</span><br><span class="line"></span><br><span class="line"><span class="built_in">disp</span>(strcat(<span class="string">'背景均值'</span>, num2str(backMean)));</span><br><span class="line"><span class="built_in">disp</span>(strcat(<span class="string">'背景标准差'</span>, num2str(backSqu)));</span><br><span class="line"><span class="built_in">disp</span>(strcat(<span class="string">'前景均值'</span>, num2str(foreMean)));</span><br><span class="line"><span class="built_in">disp</span>(strcat(<span class="string">'前景标准差'</span>, num2str(foreSqu)));</span><br></pre></td></tr></table></figure>
+<h5 id="求目标和背景高斯分布（双峰直方图）"><a href="#求目标和背景高斯分布（双峰直方图）" class="headerlink" title="求目标和背景高斯分布（双峰直方图）"></a>求目标和背景高斯分布（双峰直方图）</h5><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">0</span>:<span class="number">0.1</span>:<span class="number">256</span>;</span><br><span class="line">y1 = gaussmf(x,[backSqu^<span class="number">2</span> backMean]);</span><br><span class="line"><span class="built_in">plot</span>(x, y1);</span><br><span class="line"><span class="built_in">hold</span> on;</span><br><span class="line">y2 = gaussmf(x,[foreSqu^<span class="number">2</span> foreMean]);</span><br><span class="line"><span class="built_in">plot</span>(x, y2);</span><br><span class="line">title(<span class="string">'高斯分布'</span>);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liilzeez.github.io/2019/05/12/matlab-demo-一-图像二值化/" data-id="cjvktv4i90004fcw1lktk9ev5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/matlab/">matlab</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-demo-一-损失函数绘制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/12/python-demo-一-损失函数绘制/" class="article-date">
+  <time datetime="2019-05-12T10:14:26.000Z" itemprop="datePublished">2019-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/python-demo-一-损失函数绘制/">python_demo(一) 损失函数绘制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="深度学习损失函数绘制"><a href="#深度学习损失函数绘制" class="headerlink" title="深度学习损失函数绘制"></a>深度学习损失函数绘制</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># author: liilzeez</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">-10</span>,<span class="number">10</span>)</span><br><span class="line">y_sigmoid = <span class="number">1</span>/(<span class="number">1</span>+np.exp(-x))</span><br><span class="line">y_tanh = (np.exp(x)-np.exp(-x))/(np.exp(x)+np.exp(-x))</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line"><span class="comment"># plot sigmoid</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">221</span>)</span><br><span class="line">ax.plot(x,y_sigmoid)</span><br><span class="line">ax.grid()</span><br><span class="line">ax.set_title(<span class="string">'(a) Sigmoid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plot tanh</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">222</span>)</span><br><span class="line">ax.plot(x,y_tanh)</span><br><span class="line">ax.grid()</span><br><span class="line">ax.set_title(<span class="string">'(b) Tanh'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plot relu</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">223</span>)</span><br><span class="line">y_relu = np.array([<span class="number">0</span>*item  <span class="keyword">if</span> item&lt;<span class="number">0</span> <span class="keyword">else</span> item <span class="keyword">for</span> item <span class="keyword">in</span> x ])</span><br><span class="line">ax.plot(x,y_relu)</span><br><span class="line">ax.grid()</span><br><span class="line">ax.set_title(<span class="string">'(c) ReLu'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#plot leaky relu</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">224</span>)</span><br><span class="line">y_relu = np.array([<span class="number">0.2</span>*item  <span class="keyword">if</span> item&lt;<span class="number">0</span> <span class="keyword">else</span> item <span class="keyword">for</span> item <span class="keyword">in</span> x ])</span><br><span class="line">ax.plot(x,y_relu)</span><br><span class="line">ax.grid()</span><br><span class="line">ax.set_title(<span class="string">'(d) Leaky ReLu'</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liilzeez.github.io/2019/05/12/python-demo-一-损失函数绘制/" data-id="cjvktv4il000afcw18iq6qefl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java-demo-一-表驱动模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/12/java-demo-一-表驱动模式/" class="article-date">
+  <time datetime="2019-05-12T10:12:53.000Z" itemprop="datePublished">2019-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/java-demo-一-表驱动模式/">java_demo(一) 表驱动模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="表驱动模式"><a href="#表驱动模式" class="headerlink" title="表驱动模式"></a>表驱动模式</h5><p>从表中查找数据而不是使用if-else，数组，map等实现。</p>
+<h5 id="v2ex上讨论使用表驱动案例"><a href="#v2ex上讨论使用表驱动案例" class="headerlink" title="v2ex上讨论使用表驱动案例"></a>v2ex上讨论使用表驱动案例</h5><p>使用hashmap进行类型判断代替if-else类型判断，使用空间换时间，增强代码可维护性</p>
+<p><a href="https://www.v2ex.com/t/563230#reply16" target="_blank" rel="noopener">链接</a></p>
+<h5 id="使用枚举，链表实现表驱动模式"><a href="#使用枚举，链表实现表驱动模式" class="headerlink" title="使用枚举，链表实现表驱动模式"></a>使用枚举，链表实现表驱动模式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableDriveDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSA, COURSE.English));</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSA, COURSE.Math));</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSB, COURSE.English));</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSB, COURSE.Math));</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">enum</span> CLASS&#123;</span><br><span class="line">	CLASSA,</span><br><span class="line">	CLASSB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">enum</span> COURSE&#123;</span><br><span class="line">	English,</span><br><span class="line">	Math;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassAndCourse</span></span>&#123;</span><br><span class="line">	CLASS cls;</span><br><span class="line">	COURSE course;</span><br><span class="line">	String teacherName;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ClassAndCourse</span><span class="params">(CLASS cls, COURSE course, String teacherName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.cls = cls;</span><br><span class="line">		<span class="keyword">this</span>.course = course;</span><br><span class="line">		<span class="keyword">this</span>.teacherName = teacherName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> List&lt;ClassAndCourse&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSA, COURSE.English, <span class="string">"小王"</span>));</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSA, COURSE.Math, <span class="string">"小张"</span>));</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSB, COURSE.English, <span class="string">"也是小王"</span>));</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSB, COURSE.Math, <span class="string">"小李"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getTeachersName</span><span class="params">(CLASS cls,COURSE course)</span> </span>&#123;</span><br><span class="line">		String name = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">for</span>(ClassAndCourse x:list) &#123;</span><br><span class="line">			<span class="keyword">if</span>(x.cls.equals(cls) &amp;&amp; x.course.equals(course)) &#123;</span><br><span class="line">				name = x.teacherName;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/flylikebutterfly/article/details/83095253" target="_blank" rel="noopener">链接</a></p>
+<h5 id="表驱动统计字符串中首次出现频率最高的数字"><a href="#表驱动统计字符串中首次出现频率最高的数字" class="headerlink" title="表驱动统计字符串中首次出现频率最高的数字"></a>表驱动统计字符串中首次出现频率最高的数字</h5><p>表驱动三种索引方式：直接索引、索引表、阶梯索引</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span> <span class="title">statMostRateChar</span><span class="params">(String str)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (str != <span class="keyword">null</span> &amp;&amp; !<span class="string">""</span>.equals(str)) &#123;  </span><br><span class="line">        <span class="keyword">int</span> charsStat[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];  </span><br><span class="line">        <span class="keyword">int</span> charsFirstIdx[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];  </span><br><span class="line">        <span class="keyword">int</span> strLen = str.length();  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ch = <span class="number">0</span>; ch &lt; <span class="number">128</span>;ch++) &#123;  </span><br><span class="line">            charsFirstIdx[ch] = strLen;  </span><br><span class="line">        &#125;  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 統計字符出現的次數  </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> idx = <span class="number">0</span>; idx &lt; strLen; idx++) &#123;  </span><br><span class="line">            charsStat[str.charAt(idx)]++;  </span><br><span class="line">            <span class="comment">// 记录字符第一次出现的位置  </span></span><br><span class="line">            <span class="keyword">if</span> (idx &lt; charsFirstIdx[str.charAt(idx)]) &#123;  </span><br><span class="line">                charsFirstIdx[str.charAt(idx)] = idx;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">int</span> mostRateChar = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ch = <span class="number">1</span>; ch &lt; <span class="number">128</span>; ch++) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (charsStat[ch] == <span class="number">0</span>) &#123;  </span><br><span class="line">            <span class="keyword">continue</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="comment">// 找频率出现最高的字符  </span></span><br><span class="line">            <span class="keyword">if</span> (charsStat[mostRateChar] &lt; charsStat[ch]) &#123;  </span><br><span class="line">                mostRateChar = ch;  </span><br><span class="line">                <span class="comment">// 出现频率一样时，选择出现在前面的数  </span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (charsStat[mostRateChar] == charsStat[ch]&amp;&amp;  </span><br><span class="line">                    charsFirstIdx[mostRateChar] &gt; charsFirstIdx[ch]) &#123;  </span><br><span class="line">                mostRateChar = ch;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">char</span>) mostRateChar;  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\0'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://qaohao.iteye.com/blog/444194" target="_blank" rel="noopener">参考</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liilzeez.github.io/2019/05/12/java-demo-一-表驱动模式/" data-id="cjvktv4ie0006fcw1p6jtjz9l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pyCharm-配置GitHub" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/12/pyCharm-配置GitHub/" class="article-date">
+  <time datetime="2019-05-12T10:10:19.000Z" itemprop="datePublished">2019-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/pyCharm-配置GitHub/">pyCharm 配置GitHub</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="pyCharm-配置GitHub"><a href="#pyCharm-配置GitHub" class="headerlink" title="pyCharm 配置GitHub"></a>pyCharm 配置GitHub</h5><p><a href="https://www.cnblogs.com/feixuelove1009/p/5955332.html" target="_blank" rel="noopener">pyCharm 配置GitHub</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://liilzeez.github.io/2019/05/12/pyCharm-配置GitHub/" data-id="cjvktv4ij0009fcw11icbm4ea" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-eclipse-git使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/12/eclipse-git使用/" class="article-date">
@@ -84,14 +249,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://blog.csdn.net/m0_37890482/article/details/79669840" target="_blank" rel="noopener">Eclipse git使用</a></p>
+        <h5 id="Eclipse-git使用"><a href="#Eclipse-git使用" class="headerlink" title="Eclipse git使用"></a>Eclipse git使用</h5><p><a href="https://blog.csdn.net/m0_37890482/article/details/79669840" target="_blank" rel="noopener">Eclipse git使用</a></p>
+<h5 id="git-fetch-pull区别"><a href="#git-fetch-pull区别" class="headerlink" title="git fetch pull区别"></a>git fetch pull区别</h5><p><a href="https://blog.csdn.net/qq_36113598/article/details/78906882" target="_blank" rel="noopener">git fetch pull区别</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liilzeez.github.io/2019/05/12/eclipse-git使用/" data-id="cjvkrdjyn0002jcw1ageoml5n" class="article-share-link">Share</a>
+      <a data-url="https://liilzeez.github.io/2019/05/12/eclipse-git使用/" data-id="cjvktv4i20002fcw1zku13x1b" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
     </footer>
   </div>
   
@@ -134,9 +302,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liilzeez.github.io/2019/05/12/Github-Pages/" data-id="cjvkrdjyd0000jcw1o2esmjvs" class="article-share-link">Share</a>
+      <a data-url="https://liilzeez.github.io/2019/05/12/Github-Pages/" data-id="cjvktv4hs0000fcw16y572z6c" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
     </footer>
   </div>
   
@@ -179,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://liilzeez.github.io/2019/05/12/hello-world/" data-id="cjvkrdjyr0003jcw12j9cp5u1" class="article-share-link">Share</a>
+      <a data-url="https://liilzeez.github.io/2019/05/12/hello-world/" data-id="cjvktv4ic0005fcw124i7nfta" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,9 +369,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/matlab/">matlab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/matlab/" style="font-size: 10px;">matlab</a> <a href="/tags/python/" style="font-size: 10px;">python</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -220,15 +404,23 @@
       <ul>
         
           <li>
+            <a href="/2019/05/12/matlab-demo-一-图像二值化/">matlab_demo(一) 图像二值化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/12/python-demo-一-损失函数绘制/">python_demo(一) 损失函数绘制</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/12/java-demo-一-表驱动模式/">java_demo(一) 表驱动模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/12/pyCharm-配置GitHub/">pyCharm 配置GitHub</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/12/eclipse-git使用/">eclipse git使用</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/12/Github-Pages/">Github Pages</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/12/hello-world/">Hello World</a>
           </li>
         
       </ul>
