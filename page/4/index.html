@@ -249,6 +249,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liilzeez.github.io/2019/05/12/java-demo-一-表驱动模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liilzeez">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="文以载道">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/12/java-demo-一-表驱动模式/" itemprop="url">java_demo(一) 表驱动模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-12T18:12:53+08:00">
+                2019-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="表驱动模式"><a href="#表驱动模式" class="headerlink" title="表驱动模式"></a>表驱动模式</h5><p>从表中查找数据而不是使用if-else，数组，map等实现。</p>
+<h5 id="v2ex上讨论使用表驱动案例"><a href="#v2ex上讨论使用表驱动案例" class="headerlink" title="v2ex上讨论使用表驱动案例"></a>v2ex上讨论使用表驱动案例</h5><p>使用hashmap进行类型判断代替if-else类型判断，使用空间换时间，增强代码可维护性</p>
+<p><a href="https://www.v2ex.com/t/563230#reply16" target="_blank" rel="noopener">链接</a></p>
+<h5 id="使用枚举，链表实现表驱动模式"><a href="#使用枚举，链表实现表驱动模式" class="headerlink" title="使用枚举，链表实现表驱动模式"></a>使用枚举，链表实现表驱动模式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableDriveDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSA, COURSE.English));</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSA, COURSE.Math));</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSB, COURSE.English));</span><br><span class="line">		System.out.println(Date.getTeachersName(CLASS.CLASSB, COURSE.Math));</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">enum</span> CLASS&#123;</span><br><span class="line">	CLASSA,</span><br><span class="line">	CLASSB;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">enum</span> COURSE&#123;</span><br><span class="line">	English,</span><br><span class="line">	Math;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassAndCourse</span></span>&#123;</span><br><span class="line">	CLASS cls;</span><br><span class="line">	COURSE course;</span><br><span class="line">	String teacherName;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ClassAndCourse</span><span class="params">(CLASS cls, COURSE course, String teacherName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.cls = cls;</span><br><span class="line">		<span class="keyword">this</span>.course = course;</span><br><span class="line">		<span class="keyword">this</span>.teacherName = teacherName;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Date</span></span>&#123;</span><br><span class="line">	<span class="keyword">static</span> List&lt;ClassAndCourse&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSA, COURSE.English, <span class="string">"小王"</span>));</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSA, COURSE.Math, <span class="string">"小张"</span>));</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSB, COURSE.English, <span class="string">"也是小王"</span>));</span><br><span class="line">		list.add(<span class="keyword">new</span> ClassAndCourse(CLASS.CLASSB, COURSE.Math, <span class="string">"小李"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getTeachersName</span><span class="params">(CLASS cls,COURSE course)</span> </span>&#123;</span><br><span class="line">		String name = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">for</span>(ClassAndCourse x:list) &#123;</span><br><span class="line">			<span class="keyword">if</span>(x.cls.equals(cls) &amp;&amp; x.course.equals(course)) &#123;</span><br><span class="line">				name = x.teacherName;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/flylikebutterfly/article/details/83095253" target="_blank" rel="noopener">链接</a></p>
+<h5 id="表驱动统计字符串中首次出现频率最高的数字"><a href="#表驱动统计字符串中首次出现频率最高的数字" class="headerlink" title="表驱动统计字符串中首次出现频率最高的数字"></a>表驱动统计字符串中首次出现频率最高的数字</h5><p>表驱动三种索引方式：直接索引、索引表、阶梯索引</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">char</span> <span class="title">statMostRateChar</span><span class="params">(String str)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (str != <span class="keyword">null</span> &amp;&amp; !<span class="string">""</span>.equals(str)) &#123;  </span><br><span class="line">        <span class="keyword">int</span> charsStat[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];  </span><br><span class="line">        <span class="keyword">int</span> charsFirstIdx[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">128</span>];  </span><br><span class="line">        <span class="keyword">int</span> strLen = str.length();  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ch = <span class="number">0</span>; ch &lt; <span class="number">128</span>;ch++) &#123;  </span><br><span class="line">            charsFirstIdx[ch] = strLen;  </span><br><span class="line">        &#125;  </span><br><span class="line">          </span><br><span class="line">        <span class="comment">// 統計字符出現的次數  </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> idx = <span class="number">0</span>; idx &lt; strLen; idx++) &#123;  </span><br><span class="line">            charsStat[str.charAt(idx)]++;  </span><br><span class="line">            <span class="comment">// 记录字符第一次出现的位置  </span></span><br><span class="line">            <span class="keyword">if</span> (idx &lt; charsFirstIdx[str.charAt(idx)]) &#123;  </span><br><span class="line">                charsFirstIdx[str.charAt(idx)] = idx;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">int</span> mostRateChar = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> ch = <span class="number">1</span>; ch &lt; <span class="number">128</span>; ch++) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (charsStat[ch] == <span class="number">0</span>) &#123;  </span><br><span class="line">            <span class="keyword">continue</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="comment">// 找频率出现最高的字符  </span></span><br><span class="line">            <span class="keyword">if</span> (charsStat[mostRateChar] &lt; charsStat[ch]) &#123;  </span><br><span class="line">                mostRateChar = ch;  </span><br><span class="line">                <span class="comment">// 出现频率一样时，选择出现在前面的数  </span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (charsStat[mostRateChar] == charsStat[ch]&amp;&amp;  </span><br><span class="line">                    charsFirstIdx[mostRateChar] &gt; charsFirstIdx[ch]) &#123;  </span><br><span class="line">                mostRateChar = ch;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">char</span>) mostRateChar;  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="string">'\0'</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://qaohao.iteye.com/blog/444194" target="_blank" rel="noopener">参考</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://liilzeez.github.io/2019/05/12/pyCharm-配置GitHub/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -792,7 +919,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -805,7 +932,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
