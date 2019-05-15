@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="oracle1number(10, 0) -- 长度为10,小数位为0 mysqlSQLserver区别 oracle外键自动创建索引, mysql手动创建索引 oracle 123456789101112create table TIMEKEEPER (     Timekeeper_Id varchar2(36 char) not null,     Date_Time timestamp n">
+<meta name="description" content="oracle1number(10, 0) -- 长度为10,小数位为0 mysql 查看数据库各种状态 link   SQLserver区别 oracle外键自动创建索引, mysql手动创建索引 oracle 123456789101112create table TIMEKEEPER (     Timekeeper_Id varchar2(36 char) not null,     Dat">
 <meta name="keywords" content="数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库">
 <meta property="og:url" content="https://liilzeez.github.io/2019/05/14/数据库/index.html">
 <meta property="og:site_name" content="文以载道">
-<meta property="og:description" content="oracle1number(10, 0) -- 长度为10,小数位为0 mysqlSQLserver区别 oracle外键自动创建索引, mysql手动创建索引 oracle 123456789101112create table TIMEKEEPER (     Timekeeper_Id varchar2(36 char) not null,     Date_Time timestamp n">
+<meta property="og:description" content="oracle1number(10, 0) -- 长度为10,小数位为0 mysql 查看数据库各种状态 link   SQLserver区别 oracle外键自动创建索引, mysql手动创建索引 oracle 123456789101112create table TIMEKEEPER (     Timekeeper_Id varchar2(36 char) not null,     Dat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-14T12:45:29.815Z">
+<meta property="og:updated_time" content="2019-05-15T02:56:45.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库">
-<meta name="twitter:description" content="oracle1number(10, 0) -- 长度为10,小数位为0 mysqlSQLserver区别 oracle外键自动创建索引, mysql手动创建索引 oracle 123456789101112create table TIMEKEEPER (     Timekeeper_Id varchar2(36 char) not null,     Date_Time timestamp n">
+<meta name="twitter:description" content="oracle1number(10, 0) -- 长度为10,小数位为0 mysql 查看数据库各种状态 link   SQLserver区别 oracle外键自动创建索引, mysql手动创建索引 oracle 123456789101112create table TIMEKEEPER (     Timekeeper_Id varchar2(36 char) not null,     Dat">
 
 
 
@@ -321,7 +321,12 @@
 
       
         <h5 id="oracle"><a href="#oracle" class="headerlink" title="oracle"></a>oracle</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">number(10, 0) -- 长度为10,小数位为0</span><br></pre></td></tr></table></figure>
-<h5 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h5><h5 id="SQLserver"><a href="#SQLserver" class="headerlink" title="SQLserver"></a>SQLserver</h5><h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><hr>
+<h5 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h5><ol>
+<li><p>查看数据库各种状态</p>
+<p><a href="https://www.cnblogs.com/waterystone/p/5086012.html" target="_blank" rel="noopener">link</a></p>
+</li>
+</ol>
+<h5 id="SQLserver"><a href="#SQLserver" class="headerlink" title="SQLserver"></a>SQLserver</h5><h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><hr>
 <h6 id="oracle外键自动创建索引-mysql手动创建索引"><a href="#oracle外键自动创建索引-mysql手动创建索引" class="headerlink" title="oracle外键自动创建索引, mysql手动创建索引"></a>oracle外键自动创建索引, mysql手动创建索引</h6><ol>
 <li><p>oracle</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> TIMEKEEPER (</span><br><span class="line">     Timekeeper_Id varchar2(<span class="number">36</span> <span class="built_in">char</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     Date_Time <span class="built_in">timestamp</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     In_Out <span class="built_in">char</span>(<span class="number">1</span> <span class="built_in">char</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     EMP_ID <span class="built_in">number</span>(<span class="number">19</span>,<span class="number">0</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">     primary <span class="keyword">key</span> (Timekeeper_Id)</span><br><span class="line"> );</span><br><span class="line"></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> TIMEKEEPER</span><br><span class="line">       <span class="keyword">add</span> <span class="keyword">constraint</span> FK744D9BFF6106A42</span><br><span class="line">       <span class="keyword">foreign</span> <span class="keyword">key</span> (EMP_ID)</span><br><span class="line">       <span class="keyword">references</span> EMPLOYEE;</span><br></pre></td></tr></table></figure>
@@ -372,6 +377,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/15/java-demo-二-注解解析/" rel="prev" title="java_demo(二)-注解解析">
+                java_demo(二)-注解解析 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -448,7 +457,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -461,7 +470,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
